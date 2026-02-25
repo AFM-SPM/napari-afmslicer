@@ -68,8 +68,17 @@ target/
 
 # Pycharm and VSCode
 .idea/
-venv/
 .vscode/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Environments
+.env
+.venv
+env
+venv/
 
 # IPython Notebook
 .ipynb_checkpoints
@@ -77,8 +86,27 @@ venv/
 # pyenv
 .python-version
 
+# ruff
+.ruff_cache/
+
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# pytest-testmon
+.testmondata*
 
 # written by setuptools_scm
 **/_version.py
+
+# Emacs
+\#*
+*~
+
+# Other directories
+tmp/
