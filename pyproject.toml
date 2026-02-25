@@ -29,6 +29,8 @@ requires-python = ">=3.10"
 # or any other Qt bindings directly (e.g. PyQt5, PySide2).
 # See best practices: https://napari.org/stable/plugins/building_a_plugin/best_practices.html
 dependencies = [
+    "afmslicer @ git+https://github.com/AFM-SPM/AFMSlicer",
+    "napari-topostats",
     "numpy",
     "magicgui",
     "qtpy",
@@ -39,24 +41,59 @@ dependencies = [
 # Allow easily installation with the full, default napari installation
 # (including Qt backend) using napari-afmslicer[all].
 all = ["napari[all]"]
+tests = [
+  "pytest",
+  "pytest-cov",
+  "pytest-mpl",
+  "pytest-xdist",
+  "syrupy",
+]
+dev = [
+  "afmslicer[tests]",
+  "black",
+  "codespell",
+  "ipdb",
+  "mypy",
+  "numpydoc",
+  "pre-commit",
+  "pydocstyle[toml]",
+  "pylint",
+  "pytest-testmon",
+  "ruff",
+  "tomli",
+]
 
 [dependency-groups]
 dev = [
-    "tox-uv",
+    "black",
+    "codespell",
+    "ipdb",
+    "mypy",
+    "napari[qt]",  # test with napari's default Qt bindings
+    "numpydoc",
+    "pre-commit",
+    "pydocstyle[toml]",
+    "pylint",
     "pytest",  # https://docs.pytest.org/en/latest/contents.html
     "pytest-cov",  # https://pytest-cov.readthedocs.io/en/latest/
+    "pytest-mpl",
     "pytest-qt",  # https://pytest-qt.readthedocs.io/en/latest/
-    "napari[qt]",  # test with napari's default Qt bindings
+    "pytest-xdist",
+    "pytest-testmon",
+    "ruff",
+    "syrupy",
+    "tomli",
+    "tox-uv",
 ]
 
 [project.entry-points."napari.manifest"]
 napari-afmslicer = "napari_afmslicer:napari.yaml"
 
 [project.urls]
-"Bug Tracker" = "https://github.com/ns-rse/napari-afmslicer/issues"
-"Documentation" = "https://github.com/ns-rse/napari-afmslicer#README.md"
-"Source Code" = "https://github.com/ns-rse/napari-afmslicer"
-"User Support" = "https://github.com/ns-rse/napari-afmslicer/issues"
+"Bug Tracker" = "https://github.com/AFM-SPM/napari-afmslicer/issues"
+"Documentation" = "https://github.com/AFM-SPM/napari-afmslicer#README.md"
+"Source Code" = "https://github.com/AFM-SPM/napari-afmslicer"
+"User Support" = "https://github.com/AFM-SPM/napari-afmslicer/issues"
 
 [build-system]
 requires = ["setuptools>=42.0.0", "setuptools_scm"]
@@ -76,7 +113,7 @@ write_to = "src/napari_afmslicer/_version.py"
 fallback_version = "0.0.1+nogit"
 
 [tool.pytest.ini_options]
-minversion = "6.0"
+minversion = "8.0"
 addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
 xfail_strict = true
 # filterwarnings = ["error"]  # recommended by PP309; deprecation warnings cause failures so leaving for the user to enable if desired
@@ -84,7 +121,7 @@ log_cli_level = "INFO"
 testpaths = ["tests"]
 
 [tool.black]
-line-length = 79
+line-length = 120
 target-version = ['py310', 'py311', 'py312', 'py313']
 
 [tool.ruff]

@@ -2,11 +2,27 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=18384"]
+      - id: check-case-conflict
       - id: check-docstring-first
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-yaml
+      - id: debug-statements
       - id: end-of-file-fixer
+        types: [python, yaml, markdown]
+        exclude: ^(tests/resources|tests/__snapshots__|\.napari-hub)/.*$
+      - id: mixed-line-ending
+        types: [python, yaml, markdown]
+        exclude: ^(tests/resources|tests/__snapshots__|\.napari-hub)/.*$
+      - id: name-tests-test
+        args: ["--pytest-test-first"]
+      - id: no-commit-to-branch
+      - id: requirements-txt-fixer
       - id: trailing-whitespace
-        exclude: ^\.napari-hub/.*
-      - id: check-yaml # checks for correct yaml syntax for github actions ex.
+        types: [python, yaml, markdown]
+        exclude: ^(tests/resources|tests/__snapshots__|\.napari-hub)/.*$
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.2
     hooks:
@@ -19,9 +35,34 @@ repos:
     rev: v0.3.0
     hooks:
       - id: napari-plugin-checks
+  - repo: https://github.com/codespell-project/codespell
+    rev: "v2.4.1"
+    hooks:
+      - id: codespell
+        additional_dependencies:
+          - tomli; python_version<'3.11'
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.20.0
+    hooks:
+      - id: markdownlint-cli2
+        args: []
   # https://mypy.readthedocs.io/en/stable/
   # you may wish to add this as well!
   # - repo: https://github.com/pre-commit/mirrors-mypy
   #   rev: v1.9.0
   #   hooks:
   #     - id: mypy
+  - repo: local
+    hooks:
+      - id: pylint
+        args: ["--rcfile=.pylint.toml"]
+        name: Pylint
+        entry: python -m pylint
+        language: system
+        files: \.py$
+ci:
+  autofix_prs: true
+  autofix_commit_msg: "[pre-commit.ci] Fixing issues with pre-commit"
+  autoupdate_schedule: monthly
+  autoupdate_commit_msg: "[pre-commit.ci] pre-commit-autoupdate"
+  skip: [pylint, pytest] # Optionally list ids of hooks to skip on CI
