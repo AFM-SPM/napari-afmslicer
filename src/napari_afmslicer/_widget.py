@@ -54,12 +54,8 @@ def threshold_autogenerate_widget(
 # we specify a widget type for the threshold parameter
 # and use auto_call=True so the function is called whenever
 # the value of a parameter changes
-@magic_factory(
-    threshold={"widget_type": "FloatSlider", "max": 1}, auto_call=True
-)
-def threshold_magic_widget(
-    img_layer: "napari.layers.Image", threshold: "float"
-) -> "napari.types.LabelsData":
+@magic_factory(threshold={"widget_type": "FloatSlider", "max": 1}, auto_call=True)
+def threshold_magic_widget(img_layer: "napari.layers.Image", threshold: "float") -> "napari.types.LabelsData":
     return img_as_float(img_layer.data) > threshold
 
 
@@ -70,12 +66,8 @@ class ImageThreshold(Container):
         super().__init__()
         self._viewer = viewer
         # use create_widget to generate widgets from type annotations
-        self._image_layer_combo = create_widget(
-            label="Image", annotation="napari.layers.Image"
-        )
-        self._threshold_slider = create_widget(
-            label="Threshold", annotation=float, widget_type="FloatSlider"
-        )
+        self._image_layer_combo = create_widget(label="Image", annotation="napari.layers.Image")
+        self._threshold_slider = create_widget(label="Threshold", annotation=float, widget_type="FloatSlider")
         self._threshold_slider.min = 0
         self._threshold_slider.max = 1
         # use magicgui widgets directly
