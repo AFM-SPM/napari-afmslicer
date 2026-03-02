@@ -24,10 +24,10 @@ repos:
         types: [python, yaml, markdown]
         exclude: ^(tests/resources|tests/__snapshots__|\.napari-hub)/.*$
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.2
+    rev: v0.15.4
     hooks:
       - id: ruff
-  - repo: https://github.com/psf/black
+  - repo: https://github.com/psf/black-pre-commit-mirror
     rev: 26.1.0
     hooks:
       - id: black
@@ -42,7 +42,7 @@ repos:
         additional_dependencies:
           - tomli; python_version<'3.11'
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.20.0
+    rev: v0.21.0
     hooks:
       - id: markdownlint-cli2
         args: []
