@@ -41,6 +41,11 @@ repos:
       - id: codespell
         additional_dependencies:
           - tomli; python_version<'3.11'
+  - repo: https://github.com/numpy/numpydoc
+    rev: v1.10.0
+    hooks:
+      - id: numpydoc-validation
+        # exclude: ""
   - repo: https://github.com/DavidAnson/markdownlint-cli2
     rev: v0.20.0
     hooks:
@@ -55,7 +60,7 @@ repos:
   - repo: local
     hooks:
       - id: pylint
-        args: ["--rcfile=.pylint.toml"]
+        args: ["--rcfile=.pylintrc.toml"]
         name: Pylint
         entry: python -m pylint
         language: system
