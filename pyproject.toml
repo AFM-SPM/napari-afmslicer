@@ -19,8 +19,6 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering :: Image Processing",
 ]
 requires-python = ">=3.10"
@@ -30,7 +28,7 @@ requires-python = ">=3.10"
 # See best practices: https://napari.org/stable/plugins/building_a_plugin/best_practices.html
 dependencies = [
     "afmslicer @ git+https://github.com/AFM-SPM/AFMSlicer",
-    "napari-topostats",
+    "napari-afmreader",
     "numpy",
     "magicgui",
     "qtpy",
@@ -49,7 +47,7 @@ tests = [
   "syrupy",
 ]
 dev = [
-  "afmslicer[tests]",
+  "napari-afmslicer[tests]",
   "black",
   "codespell",
   "ipdb",
