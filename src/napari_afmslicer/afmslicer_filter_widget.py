@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 
 @magic_factory(
-    img_layer={"label": "Image"},
+    image={"label": "Image"},
     row_alignment_quantile={
         "label": "Row alignment quantile",
         "min": 0,
@@ -67,7 +67,7 @@ if TYPE_CHECKING:
     call_button="Filter",
 )
 def afmslicer_filter_widget(  # pylint: disable=too-many-positional-arguments
-    img_layer: Image,
+    image: Image,
     row_alignment_quantile: float = 0.5,
     gaussian_size: float = 4.0,
     gaussian_mode: str = "nearest",
@@ -83,7 +83,7 @@ def afmslicer_filter_widget(  # pylint: disable=too-many-positional-arguments
 
     Parameters
     ----------
-    img_layer : Image
+    image : Image
         Image to be filtered.
     row_alignment_quantile : float
         Quantile to use for median flattening, typically ``0.5`` but other values can be used.
@@ -124,11 +124,11 @@ def afmslicer_filter_widget(  # pylint: disable=too-many-positional-arguments
 
     # Make topostats_object
     topostats_object = TopoStats(
-        image_original=img_layer.data,
+        image_original=image.data,
         filename="",
         # napari-AFMReader returns very basic info in img_layer.metadata
-        pixel_to_nm_scaling=img_layer.metadata["px2nm"],
-        img_path=img_layer.metadata["image_path"],
+        pixel_to_nm_scaling=image.metadata["px2nm"],
+        img_path=image.metadata["image_path"],
         basename="",
         topostats_version=topostats_version,
         config=config,
@@ -144,6 +144,6 @@ def afmslicer_filter_widget(  # pylint: disable=too-many-positional-arguments
     slicing_filter.filter_image()
     return (
         topostats_object.image,
-        {"name": f"{img_layer.name}_filtered"},
+        {"name": f"{image.name}_filtered"},
         "image",
     )
