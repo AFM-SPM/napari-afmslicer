@@ -123,7 +123,7 @@ line-length = 120
 target-version = ['py310', 'py311', 'py312', 'py313']
 
 [tool.ruff]
-line-length = 79
+line-length = 120
 lint.select = [
     "E", "F", "W", #flake8
     "UP", # pyupgrade
@@ -141,7 +141,6 @@ lint.ignore = [
     "E501", # line too long. let black handle this
     "UP006", "UP007", # type annotation. As using magicgui require runtime type annotation then we disable this.
 ]
-
 exclude = [
     ".bzr",
     ".direnv",
@@ -164,3 +163,42 @@ exclude = [
     "*_vendor*",
 ]
 fix = true
+
+# Numpy2 deprecation checks
+lint.extend-select = ["NPY201"]
+preview = false
+
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"
+
+[tool.ruff.lint.isort]
+case-sensitive = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = true
+
+[tool.codespell]
+skip = '*.spm*,*.mplstyle,*.svg,*.stp,*.top,*.002,*.004'
+count = ''
+quiet-level = 3
+ignore-words-list = 'OT'
+
+[tool.numpydoc_validation]
+checks = [
+  "all", # Perform all check except those listed below
+  "ES01",
+  "EX01",
+  "PR10", # Conflicts with black formatting
+  "SA01",
+]
+exclude = [  # don't report on objects that match any of these regex
+    "\\.undocumented_method$",
+    "\\.__repr__$",
+    "^test_",
+    "^conftest",
+    "^conf$",
+    "^notebooks/*.py$"
+]
