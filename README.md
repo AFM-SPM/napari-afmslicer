@@ -15,14 +15,6 @@ A simple plugin to use [AFMSlicer] with [napari]
 
 This [napari] plugin was generated with [copier] using the [napari-plugin-template].
 
-<!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/napari-plugin-template#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/stable/plugins/index.html
--->
-
 ## Installation
 
 You can install `napari-afmslicer` via [pip]:
@@ -42,6 +34,31 @@ To install latest development version :
 ``` bash
 pip install git+https://github.com/AFM-SPM/napari-afmslicer.git
 ```
+
+## Usage
+
+Once installed you can launch `napari` from the command line.
+
+``` bash
+napari
+```
+
+The resulting widgets implemented in this package can be found under the _Plugins > AFMSlicer_ menu. Selecting each
+brings up a "widget" on the right hand side of the window (by default). There are the following widgets.
+
+- AFMSlicer 3D Viewer
+- AFMSlicer Filtering
+- AFMSlicer Slicing (**WIP**)
+
+From each of the widgets configuration options can be toggled that change the settings for running/processing the
+image. Clicking on the _Run_ button at the bottom of any of these should result in a new Layer being displayed in Napari
+that show the effects of processing the selected image.
+
+### Additional Plugins
+
+Because AFMSlicer uses some of the functionality of [TopoStats][topostats] the [napari-TopoStats][nptopostats] is
+included as a dependency and installed when napari-AFMSlicer is installed. Further the [napari-skimage][npskimage]
+package is also included as a dependency and will be available.
 
 ## Contributing
 
@@ -67,3 +84,6 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 
 [tox]: https://tox.readthedocs.io/en/latest/
 [pip]: https://pypi.org/project/pip/
+[topostats]: https://github.com/AFM-SPM/TopoStats
+[nptopostats]: https://github.com/AFM-SPM/napari-TopoStats
+[npskimage]: https://github.com/guiwitz/napari-skimage
