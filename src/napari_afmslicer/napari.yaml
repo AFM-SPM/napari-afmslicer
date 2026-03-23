@@ -8,20 +8,26 @@ contributions:
   commands:
     - id: napari-afmslicer.make_afmslicer_filter_widget
       python_name: napari_afmslicer.afmslicer_filter_widget:afmslicer_filter_widget
-      title: AFMSlicer Filter Widget
+      title: Filter Widget
+    - id: napari-afmslicer.make_afmslicer_slicing_widget
+      python_name: napari_afmslicer.afmslicer_slicer_widget:afmslicer_slicing_widget
+      title: Slicing
     - id: napari-afmslicer.view_3d_widget
       python_name: napari_afmslicer.view_3d_widget:view_3d
-      title: AFMSlicer 3D Viewer
+      title: 3D Viewer
   widgets:
     - command: napari-afmslicer.make_afmslicer_filter_widget
-      display_name: AFMSlicer Filter
+      display_name: Filter
+    - command: napari-afmslicer.make_afmslicer_slicing_widget
+      display_name: Slicing
     - command: napari-afmslicer.view_3d_widget
-      display_name: AFMSlicer 3D Viewer
+      display_name: 3D Viewer
   menus:
     napari/layers/filters:
       - submenu: filtering_submenu
     filtering_submenu:
       - command: napari-afmslicer.make_afmslicer_filter_widget
+      - command: napari-afmslicer.make_afmslicer_slicing_widget
       - command: napari-afmslicer.view_3d_widget
 
   submenus:
