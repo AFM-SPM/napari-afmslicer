@@ -1,4 +1,4 @@
-"""Widgets for running AFMSlicer."""
+"""Widgets for running AFMSlicer filtering."""
 
 from pkgutil import get_data
 from typing import TYPE_CHECKING
@@ -34,6 +34,7 @@ if TYPE_CHECKING:
         "label": "Gaussian mode",
         "choices": {"reflect", "constant", "nearest", "mirror", "wrap"},
     },
+    remove_scars={"label": "Remove scars"},
     removal_iterations={
         "label": "Removal iterations",
         "min": 1,
@@ -142,8 +143,9 @@ def afmslicer_filter_widget(  # pylint: disable=too-many-positional-arguments
         remove_scars=config["filter"]["remove_scars"],
     )
     slicing_filter.filter_image()
+    # image.metadata["img_name"] = image.name
     return (
         topostats_object.image,
-        {"name": f"{image.name}_filtered"},
+        {"name": f"{image.name}_filtered", "metadata": image.metadata},  # "config": config},
         "image",
     )
