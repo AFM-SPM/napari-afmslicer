@@ -102,7 +102,7 @@ def afmslicer_slicing_widget(  # pylint: disable=too-many-positional-arguments
     afmslicer_object.statistics = statistics.classify_pore_size(
         df=afmslicer_object.statistics,
         area_thresholds=config["slicing"]["area_thresholds"],
-        area_colors=config["slicing"]["pore_colors"],
+        pore_colors=config["slicing"]["pore_colors"],
         area_val="area",
     )
     afmslicer_object.statistics.to_csv(Path(config["output_dir"]) / f"{clean_image_name}_statistics.csv", index=False)
