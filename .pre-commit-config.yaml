@@ -24,11 +24,11 @@ repos:
         types: [python, yaml, markdown]
         exclude: ^(tests/resources|tests/__snapshots__|\.napari-hub)/.*$
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.2
+    rev: v0.16.6
     hooks:
       - id: ruff
-  - repo: https://github.com/psf/black
-    rev: 26.1.0
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 26.5.1
     hooks:
       - id: black
   - repo: https://github.com/tlambert03/napari-plugin-checks
@@ -36,18 +36,18 @@ repos:
     hooks:
       - id: napari-plugin-checks
   - repo: https://github.com/codespell-project/codespell
-    rev: "v2.4.1"
+    rev: "v2.4.3"
     hooks:
       - id: codespell
         additional_dependencies:
           - tomli; python_version<'3.11'
   - repo: https://github.com/numpy/numpydoc
-    rev: v1.10.0
+    rev: v1.11.0rc0
     hooks:
       - id: numpydoc-validation
         # exclude: ""
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.20.0
+    rev: v0.23.2
     hooks:
       - id: markdownlint-cli2
         args: []
