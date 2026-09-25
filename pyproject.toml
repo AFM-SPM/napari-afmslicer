@@ -17,11 +17,10 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Topic :: Scientific/Engineering :: Image Processing",
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 # napari can be included in dependencies if napari imports are required.
 # However, you should not include napari[all], napari[qt],
 # or any other Qt bindings directly (e.g. PyQt5, PySide2).
@@ -114,7 +113,7 @@ write_to = "src/napari_afmslicer/_version.py"
 fallback_version = "0.0.1+nogit"
 
 [tool.pytest.ini_options]
-minversion = "8.0"
+minversion = "9.0"
 addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
 xfail_strict = true
 # filterwarnings = ["error"]  # recommended by PP309; deprecation warnings cause failures so leaving for the user to enable if desired
