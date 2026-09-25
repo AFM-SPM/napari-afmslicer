@@ -1,3 +1,7 @@
+[build-system]
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
+
 [project]
 name = "napari-afmslicer"
 dynamic = ["version"]
@@ -20,7 +24,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Topic :: Scientific/Engineering :: Image Processing",
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.11, <3.12"
 # napari can be included in dependencies if napari imports are required.
 # However, you should not include napari[all], napari[qt],
 # or any other Qt bindings directly (e.g. PyQt5, PySide2).
@@ -94,10 +98,6 @@ napari-afmslicer = "napari_afmslicer:napari.yaml"
 "Documentation" = "https://github.com/AFM-SPM/napari-afmslicer#README.md"
 "Source Code" = "https://github.com/AFM-SPM/napari-afmslicer"
 "User Support" = "https://github.com/AFM-SPM/napari-afmslicer/issues"
-
-[build-system]
-requires = ["setuptools>=42.0.0", "setuptools_scm"]
-build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 include-package-data = true
@@ -183,10 +183,13 @@ convention = "numpy"
 fixture-parentheses = true
 
 [tool.codespell]
-skip = '*.spm*,*.mplstyle,*.svg,*.stp,*.top,*.002,*.004'
+skip = '*.spm*,*.mplstyle,*.svg,*.stp,*.top,*.002,*.004,uv.lock'
 count = ''
 quiet-level = 3
-ignore-words-list = 'OT'
+ignore-words-list = [
+  'OT',
+  "Gwyddion"
+]
 
 [tool.numpydoc_validation]
 checks = [
@@ -204,3 +207,9 @@ exclude = [  # don't report on objects that match any of these regex
     "^conf$",
     "^notebooks/*.py$"
 ]
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+[tool.hatch.metadata]
+allow-direct-references = true
