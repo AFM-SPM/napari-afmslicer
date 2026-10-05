@@ -43,6 +43,7 @@ dependencies = [
 extras = [
   "napari-crop",
   "napari-plot-profile",
+  "napari-segment-blobs-and-things-with-membranes",
   "napari-skimage",
 ]
 all = ["napari[all]"]
