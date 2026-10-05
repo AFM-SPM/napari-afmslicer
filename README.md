@@ -17,22 +17,63 @@ This [napari] plugin was generated with [copier] using the [napari-plugin-templa
 
 ## Installation
 
-You can install `napari-afmslicer` via [pip]:
+### Virtual Environments
+
+`napari-afmslicer` is developed using the [uv] package manager and it is recommended as a fast and simple to use tool
+for creating and managing virtual environments.
 
 ``` bash
-pip install napari-afmslicer
+cd ~/path/to/work
+mkdir afmslicer-work
+cd afmslicer-work
+uv venv
+
 ```
 
-If [napari] is not already installed, you can install `napari-afmslicer` with [napari] and Qt via:
+### Installation from PyPI
+
+**NB** Currently napari-afmslicer is _not_ yet available on PyPI and can not be installed from it using [pip].
+
+<!-- You can install `napari-afmslicer` via [pip]: -->
+
+<!-- ``` bash -->
+<!-- pip install napari-afmslicer -->
+<!-- ``` -->
+
+<!-- If [napari] is not already installed, you can install `napari-afmslicer` with [napari] and Qt via: -->
+
+<!-- ``` bash -->
+<!-- pip install "napari-afmslicer[all]" -->
+<!-- ``` -->
+
+<!-- To install latest development version : -->
+
+<!-- ``` bash -->
+<!-- pip install git+https://github.com/AFM-SPM/napari-afmslicer.git -->
+<!-- ``` -->
+
+### Installation from Napari
+
+**NB** Currently as napari-afmslicer is _not_ yet available on PyPI it can not be installed via the plugins menu in
+Napari.
+
+### Git Clone
+
+You can clone and install the `napari-afmslicer` within the virtual environment of your choice. First clone the repository
 
 ``` bash
-pip install "napari-afmslicer[all]"
+git clone git@github.com:AFM-SPM/napari-afmslicer.git   # If you have SSH keys configured on GitHub
+git clone https://github.com/AFM-SPM/napari-afmslicer.git # If you don't have SSh keys configured on GitHub
 ```
 
-To install latest development version :
+Then install it within a virtual environment, the following creates a [uv] environment within the clone directory and
+installs all plugins and developer optiosn
 
 ``` bash
-pip install git+https://github.com/AFM-SPM/napari-afmslicer.git
+cd napari-afmslicer
+uv venv
+uv sync
+uv pip install -e .[extra,all] --group dev
 ```
 
 ## Usage
@@ -48,27 +89,37 @@ brings up a "widget" on the right hand side of the window (by default). There ar
 
 - AFMSlicer 3D Viewer
 - AFMSlicer Filtering
-- AFMSlicer Slicing (**WIP**)
+- AFMSlicer Slicing
 
 From each of the widgets configuration options can be toggled that change the settings for running/processing the
 image. Clicking on the _Run_ button at the bottom of any of these should result in a new Layer being displayed in Napari
 that show the effects of processing the selected image.
 
+You can optionally start all napari AFMSlicer widgets with the following...
+
+``` bash
+napari -w napari-afmslicer __all__
+```
+
+The screenshot below shows a 3D view of a scan. and the widget tabs for filtering and slicing are on the bottom right of
+the screen.
+
+![Napari AFMSlicer screenshot of 3D image of a scan.](napari_screenshot.png)
+
 ### Additional Plugins
 
-Because AFMSlicer uses some of the functionality of [TopoStats][topostats] the [napari-TopoStats][nptopostats] is
-included as a dependency and installed when napari-AFMSlicer is installed. Further the [napari-skimage][npskimage]
-package is also included as a dependency and will be available.
+Because AFMSlicer uses some of the functionality of [TopoStats][topostats] the [napari-TopoStats] is included as a
+dependency and installed when napari-AFMSlicer is installed. Further the [napari-skimage] package is also included as a
+dependency and will be available.
 
 ## Contributing
 
-Contributions are very welcome. Tests can be run with [tox], please ensure
-the coverage at least stays the same before you submit a pull request.
+Contributions are very welcome. Tests can be run with [tox], please ensure the coverage at least stays the same before
+you submit a pull request.
 
 ## License
 
-Distributed under the terms of the [GNU GPL v3.0] license,
-"napari-afmslicer" is free and open source software
+Distributed under the terms of the [GNU GPL v3.0] license, "napari-afmslicer" is free and open source software
 
 ## Issues
 
@@ -85,5 +136,6 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [tox]: https://tox.readthedocs.io/en/latest/
 [pip]: https://pypi.org/project/pip/
 [topostats]: https://github.com/AFM-SPM/TopoStats
-[nptopostats]: https://github.com/AFM-SPM/napari-TopoStats
-[npskimage]: https://github.com/guiwitz/napari-skimage
+[napari-TopoStats]: https://github.com/AFM-SPM/napari-TopoStats
+[napari-skimage]: https://github.com/guiwitz/napari-skimage
+[uv]: https://docs.astral.sh/uv/

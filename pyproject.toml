@@ -30,64 +30,47 @@ requires-python = ">=3.11, <3.12"
 # or any other Qt bindings directly (e.g. PyQt5, PySide2).
 # See best practices: https://napari.org/stable/plugins/building_a_plugin/best_practices.html
 dependencies = [
-    "afmslicer @ git+https://github.com/AFM-SPM/AFMSlicer",
-    "napari-afmreader",
-    "napari-crop",
-    "napari-skimage",
-    "napari-topostats",
-    "numpy",
-    "magicgui",
-    "qtpy",
-    "scikit-image",
+  "afmslicer @ git+https://github.com/AFM-SPM/AFMSlicer",
+  "napari-afmreader",
+  "napari-topostats",
+  "numpy",
+  "magicgui",
+  "qtpy",
+  "scikit-image",
 ]
 
 [project.optional-dependencies]
-# Allow easily installation with the full, default napari installation
-# (including Qt backend) using napari-afmslicer[all].
+extras = [
+  "napari-crop",
+  "napari-plot-profile",
+  "napari-skimage",
+]
 all = ["napari[all]"]
+
+[dependency-groups]
 tests = [
   "pytest",
   "pytest-cov",
   "pytest-mpl",
+  "pytest-qt",  # https://pytest-qt.readthedocs.io/en/latest/
   "pytest-xdist",
+  "pytest-testmon",
   "syrupy",
 ]
 dev = [
-  "napari-afmslicer[tests]",
+  { include-group = "tests" },
   "black",
   "codespell",
   "ipdb",
   "mypy",
+  "napari[qt]",  # test with napari's default Qt bindings
   "numpydoc",
   "pre-commit",
   "pydocstyle[toml]",
   "pylint",
-  "pytest-testmon",
   "ruff",
   "tomli",
-]
-
-[dependency-groups]
-dev = [
-    "black",
-    "codespell",
-    "ipdb",
-    "mypy",
-    "napari[qt]",  # test with napari's default Qt bindings
-    "numpydoc",
-    "pre-commit",
-    "pydocstyle[toml]",
-    "pylint",
-    "pytest",  # https://docs.pytest.org/en/latest/contents.html
-    "pytest-cov",  # https://pytest-cov.readthedocs.io/en/latest/
-    "pytest-mpl",
-    "pytest-qt",  # https://pytest-qt.readthedocs.io/en/latest/
-    "pytest-xdist",
-    "pytest-testmon",
-    "ruff",
-    "syrupy",
-    "tomli",
-    "tox-uv",
+  "tox-uv",
 ]
 
 [project.entry-points."napari.manifest"]
