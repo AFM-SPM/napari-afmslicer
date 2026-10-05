@@ -108,9 +108,27 @@ the screen.
 
 ### Additional Plugins
 
-Because AFMSlicer uses some of the functionality of [TopoStats][topostats] the [napari-TopoStats] is included as a
-dependency and installed when napari-AFMSlicer is installed. Further the [napari-skimage] package is also included as a
-dependency and will be available.
+Because AFMSlicer uses some of the functionality of [TopoStats][topostats] the [napari-TopoStats] and [napari-AFMReader]
+plugins are included as a dependency and installed when napari-AFMSlicer is installed.
+
+There are a lot of [napari plugins] available though, some of which are particularly useful for the AFMSlicer
+workflow. These will be installed if you use the optional dependency group `extra` when installing `napari-afmslicer`
+
+``` bash
+uv pip install -e ".[extra]"
+```
+
+After launching Napari you will find these plugins listed under the "_Plugin_" menu.
+
+The additional plugins that will be installed are...
+
+- [napari-crop]
+- [napari-plot-profile]
+- [napari-segment-blobs-and-things-with-membranes]
+- [napari-skimage]
+
+**NB** - If you encounter problems with these plugins please report them up-stream at the GitHub repository for the
+plugin rather than here.
 
 ## Contributing
 
@@ -136,6 +154,10 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [tox]: https://tox.readthedocs.io/en/latest/
 [pip]: https://pypi.org/project/pip/
 [topostats]: https://github.com/AFM-SPM/TopoStats
-[napari-TopoStats]: https://github.com/AFM-SPM/napari-TopoStats
+[napari-AFMReader]: https://github.com/AFM-SPM/napari-AFMReader
+[napari-crop]: https://github.com/biapol/napari-crop
+[napari-plot-profile]: https://github.com/haesleinhuepf/napari-plot-profile
+[napari-segment-blobs-and-things-with-membranes]: https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes
 [napari-skimage]: https://github.com/guiwitz/napari-skimage
+[napari-TopoStats]: https://github.com/AFM-SPM/napari-TopoStats
 [uv]: https://docs.astral.sh/uv/
