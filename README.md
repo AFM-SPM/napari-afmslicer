@@ -17,6 +17,9 @@ This [napari] plugin was generated with [copier] using the [napari-plugin-templa
 
 ## Installation
 
+**NB** - For detailed instructions in installation of napari-afmslicer and [AFMSlicer] see the [AFMSlicer
+  Installation][afmslicer_install] information.
+
 ### Virtual Environments
 
 `napari-afmslicer` is developed using the [uv] package manager and it is recommended as a fast and simple to use tool
@@ -32,30 +35,28 @@ uv venv
 
 ### Installation from PyPI
 
-**NB** Currently napari-afmslicer is _not_ yet available on PyPI and can not be installed from it using [pip].
+You can install `napari-afmslicer` via [pip]:
 
-<!-- You can install `napari-afmslicer` via [pip]: -->
+``` bash
+pip install napari-afmslicer
+```
 
-<!-- ``` bash -->
-<!-- pip install napari-afmslicer -->
-<!-- ``` -->
+If [napari] is not already installed, you can install `napari-afmslicer` with [napari] and Qt via:
 
-<!-- If [napari] is not already installed, you can install `napari-afmslicer` with [napari] and Qt via: -->
+``` bash
+pip install "napari-afmslicer[all]"
+```
 
-<!-- ``` bash -->
-<!-- pip install "napari-afmslicer[all]" -->
-<!-- ``` -->
+To install latest development version :
 
-<!-- To install latest development version : -->
-
-<!-- ``` bash -->
-<!-- pip install git+https://github.com/AFM-SPM/napari-afmslicer.git -->
-<!-- ``` -->
+``` bash
+pip install git+https://github.com/AFM-SPM/napari-afmslicer.git
+```
 
 ### Installation from Napari
 
-**NB** Currently as napari-afmslicer is _not_ yet available on PyPI it can not be installed via the plugins menu in
-Napari.
+You can install `napari-afmslicer` from the [Napari Hub][napari-hub] from within Napari itself. After having launched
+Napari
 
 ### Git Clone
 
@@ -73,7 +74,7 @@ installs all plugins and developer optiosn
 cd napari-afmslicer
 uv venv
 uv sync
-uv pip install -e .[extra,all] --group dev
+uv pip install -e .[extras,all] --group dev
 ```
 
 ## Usage
@@ -112,10 +113,11 @@ Because AFMSlicer uses some of the functionality of [TopoStats][topostats] the [
 plugins are included as a dependency and installed when napari-AFMSlicer is installed.
 
 There are a lot of [napari plugins] available though, some of which are particularly useful for the AFMSlicer
-workflow. These will be installed if you use the optional dependency group `extra` when installing `napari-afmslicer`
+workflow. These will be installed if you use the optional dependency group `extras` when installing `napari-afmslicer`
+with the following.
 
 ``` bash
-uv pip install -e ".[extra]"
+uv pip install -e ".[extras]"
 ```
 
 After launching Napari you will find these plugins listed under the "_Plugin_" menu.
@@ -144,6 +146,7 @@ Distributed under the terms of the [GNU GPL v3.0] license, "napari-afmslicer" is
 If you encounter any problems, please [file an issue] along with a detailed description.
 
 [AFMSlicer]: https://github.com/AFM-SPM/AFMSlicer/
+[afmslicer_install]: https://afm-spm.github.io/AFMSlicer/installation/
 [napari]: https://github.com/napari/napari
 [copier]: https://copier.readthedocs.io/en/stable/
 [GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
@@ -156,6 +159,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [topostats]: https://github.com/AFM-SPM/TopoStats
 [napari-AFMReader]: https://github.com/AFM-SPM/napari-AFMReader
 [napari-crop]: https://github.com/biapol/napari-crop
+[napari-hub]: https://napari-hub.org/
 [napari-plot-profile]: https://github.com/haesleinhuepf/napari-plot-profile
 [napari-segment-blobs-and-things-with-membranes]: https://github.com/haesleinhuepf/napari-segment-blobs-and-things-with-membranes
 [napari-skimage]: https://github.com/guiwitz/napari-skimage
