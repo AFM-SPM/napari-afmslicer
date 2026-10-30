@@ -13,12 +13,15 @@ from napari.layers import Image
 from napari.utils import notifications
 from topostats.io import write_yaml
 
+from napari_afmslicer import utils
+
 if TYPE_CHECKING:
     pass
 
 
 @magic_factory(
     image={"label": "Image"},
+    source_image={"label": "Original image (uncropped)"},
     slices={"label": "Slices", "widget_type": "Slider", "min": 2, "max": 255, "step": 1},
     segment_method={
         "label": "Segmentation method",
@@ -33,8 +36,9 @@ if TYPE_CHECKING:
     output_dir={"label": "Output directory", "widget_type": "LineEdit", "value": "output"},
     call_button="Slice Image and Summarise",
 )
-def afmslicer_slicing_widget(  # pylint: disable=too-many-positional-arguments
+def afmslicer_slicing_widget(  # pylint: disable=too-many-positional-arguments,too-many-arguments
     image: Image,
+    source_image: Image,
     slices: int = 50,
     segment_method: str = "label",
     area: bool = True,
@@ -52,6 +56,8 @@ def afmslicer_slicing_widget(  # pylint: disable=too-many-positional-arguments
     ----------
     image : Image
         Napari Image to be sliced.
+    source_image : Image
+        Original source image, typically the uncropped image.
     slices : int
         Number of slices to create through the image between the min and max height.
     segment_method : str
@@ -83,13 +89,16 @@ def afmslicer_slicing_widget(  # pylint: disable=too-many-positional-arguments
     config["plotting"]["format"] = plotting_format
     config["plotting"]["gif_duration"] = plotting_gif_duration
     config["output_dir"] = Path(output_dir)
-    clean_image_name = image.name.replace("_filtered", "")
+    # napari-crops are plain numpy arrays and don't inherit px2nm so we need to use source_image if we have such a
+    # cropped layer
+    if "px2nm" not in image.metadata:
+        utils.update_metadata(image=image, source_image=source_image)
     # Make AFMSlicer
     afmslicer_object = AFMSlicer(
         image=image.data,
         pixel_to_nm_scaling=image.metadata["px2nm"],
         img_path=image.metadata["image_path"],
-        filename=clean_image_name,
+        filename=image.name,
         slices=slices,
         config=config,
     )
@@ -97,7 +106,7 @@ def afmslicer_slicing_widget(  # pylint: disable=too-many-positional-arguments
     # Extract statistics and write to disk along with configuration file
     # Need to add in image name and reset the index (normally added by `pd.concat()` when running at the command line
     # but here we only ever have a single image so have to manually add it.)
-    afmslicer_object.statistics["image"] = clean_image_name
+    afmslicer_object.statistics["image"] = image.name
     afmslicer_object.statistics = afmslicer_object.statistics.reset_index().set_index(["image", "layer", "pore"])
     afmslicer_object.statistics = statistics.classify_pore_size(
         df=afmslicer_object.statistics,
@@ -105,10 +114,10 @@ def afmslicer_slicing_widget(  # pylint: disable=too-many-positional-arguments
         pore_colors=config["slicing"]["pore_colors"],
         area_val="area",
     )
-    afmslicer_object.statistics.to_csv(Path(config["output_dir"]) / f"{clean_image_name}_statistics.csv", index=False)
+    afmslicer_object.statistics.to_csv(Path(config["output_dir"]) / f"{image.name}_statistics.csv", index=False)
     color_count_df = statistics.summarise_pores(
         df=afmslicer_object.statistics, pore_colors=config["slicing"]["pore_colors"]
     )
-    color_count_df.to_csv(Path(config["output_dir"]) / f"{clean_image_name}_color_count.csv")
+    color_count_df.to_csv(Path(config["output_dir"]) / f"{image.name}_color_count.csv")
     write_yaml(config, output_dir=config["output_dir"])
     notifications.show_info(f"🔪 Slicing complete results are in  : {config['output_dir']} 🔪")
