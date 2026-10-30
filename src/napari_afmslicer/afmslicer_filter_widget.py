@@ -12,12 +12,15 @@ from napari.layers import Image
 from topostats import __version__ as topostats_version
 from topostats.classes import TopoStats
 
+from napari_afmslicer import utils
+
 if TYPE_CHECKING:
     import napari
 
 
 @magic_factory(
     image={"label": "Image"},
+    source_image={"label": "Original image (uncropped)"},
     row_alignment_quantile={
         "label": "Row alignment quantile",
         "min": 0,
@@ -67,10 +70,11 @@ if TYPE_CHECKING:
     },
     call_button="Filter",
 )
-def afmslicer_filter_widget(  # pylint: disable=too-many-positional-arguments
+def afmslicer_filter_widget(  # pylint: disable=too-many-positional-arguments,too-many-arguments
     image: Image,
+    source_image: Image,
     row_alignment_quantile: float = 0.5,
-    gaussian_size: float = 4.0,
+    gaussian_size: float = 2.0,
     gaussian_mode: str = "nearest",
     remove_scars: bool = True,
     removal_iterations: int = 2,
@@ -86,6 +90,8 @@ def afmslicer_filter_widget(  # pylint: disable=too-many-positional-arguments
     ----------
     image : Image
         Image to be filtered.
+    source_image : Image
+        Original source image, typically the uncropped image.
     row_alignment_quantile : float
         Quantile to use for median flattening, typically ``0.5`` but other values can be used.
     gaussian_size : float
@@ -122,7 +128,10 @@ def afmslicer_filter_widget(  # pylint: disable=too-many-positional-arguments
     config["filter"]["remove_scars"]["threshold_high"] = threshold_high
     config["filter"]["remove_scars"]["max_scar_width"] = max_scar_width
     config["filter"]["remove_scars"]["min_scar_length"] = min_scar_length
-
+    # napari-crops are plain numpy arrays and don't inherit px2nm so we need to use source_image if we have such a
+    # cropped layer
+    if "px2nm" not in image.metadata:
+        utils.update_metadata(image=image, source_image=source_image)
     # Make topostats_object
     topostats_object = TopoStats(
         image_original=image.data,

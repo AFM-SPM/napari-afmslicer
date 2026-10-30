@@ -26,7 +26,9 @@ repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.16.10
     hooks:
-      - id: ruff
+      - id: ruff-check
+        args: ["--fix", "--show-fixes", "--exit-non-zero-on-fix"]
+      - id: ruff-format
   - repo: https://github.com/psf/black-pre-commit-mirror
     rev: 26.10.0
     hooks:
