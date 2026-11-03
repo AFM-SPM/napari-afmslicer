@@ -36,7 +36,7 @@ if TYPE_CHECKING:
     output_dir={"label": "Output directory", "widget_type": "LineEdit", "value": "output"},
     call_button="Slice Image and Summarise",
 )
-def afmslicer_slicing_widget(  # pylint: disable=too-many-positional-arguments,too-many-arguments
+def slicing_widget(  # pylint: disable=too-many-positional-arguments,too-many-arguments
     image: Image,
     source_image: Image,
     slices: int = 50,

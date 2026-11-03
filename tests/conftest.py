@@ -61,7 +61,7 @@ def sample2_image() -> Image:
 @pytest.fixture
 def filter_function() -> Callable[..., LayerDataTuple]:
     """Return the Python function wrapped by the magic_factory."""
-    function: object = afmslicer_filter_widget.afmslicer_filter_widget.keywords["function"]
+    function: object = afmslicer_filter_widget.filter_widget.keywords["function"]
     return cast(Callable[..., LayerDataTuple], function)
 
 
@@ -102,7 +102,7 @@ filter:
 @pytest.fixture
 def slicing_function() -> Callable[..., None]:
     """Return the Python function wrapped by the magic_factory."""
-    function: object = afmslicer_slicer_widget.afmslicer_slicing_widget.keywords["function"]
+    function: object = afmslicer_slicer_widget.slicing_widget.keywords["function"]
     return cast(Callable[..., None], function)
 
 
