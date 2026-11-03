@@ -70,7 +70,7 @@ if TYPE_CHECKING:
     },
     call_button="Filter",
 )
-def afmslicer_filter_widget(  # pylint: disable=too-many-positional-arguments,too-many-arguments
+def filter_widget(  # pylint: disable=too-many-positional-arguments,too-many-arguments
     image: Image,
     source_image: Image,
     row_alignment_quantile: float = 0.5,

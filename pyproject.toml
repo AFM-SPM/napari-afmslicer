@@ -32,6 +32,7 @@ requires-python = ">=3.11, <3.12"
 dependencies = [
   "afmslicer",
   "napari-afmreader",
+  "napari-crop",
   "napari-topostats",
   "numpy",
   "magicgui",
