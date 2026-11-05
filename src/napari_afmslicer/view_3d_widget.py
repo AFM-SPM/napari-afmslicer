@@ -14,12 +14,12 @@ if TYPE_CHECKING:
 
 @magic_factory(
     image={"label": "Image"},
-    binary={
-        "label": "Produce binary array.",
-    },
+    grid={"label": "Coordinate grid"},
+    binary={"label": "Produce binary array"},
 )
 def view_3d(
     image: Image,
+    grid: bool = False,
     binary: bool = False,
 ) -> napari.types.LayerDataTuple:
     """
@@ -29,6 +29,8 @@ def view_3d(
     ----------
     image : Image
         Image to be viewed in three dimensions, typically post-filtering.
+    grid : bool
+        Whether to include a coordinate grid overlay on the axes.
     binary : bool
         Whether to convert data points to binary, normally you won't want this.
 
@@ -40,6 +42,7 @@ def view_3d(
     three_dimensions = slice_3d(array=image.data, scaling=image.metadata["px2nm"], binary=binary)
     viewer = current_viewer()
     viewer.dims.ndisplay = 3
+    viewer.scene.overlays.coordinate_grid.visible = grid
     return (
         three_dimensions,
         {"name": f"{image.name}_3D"},

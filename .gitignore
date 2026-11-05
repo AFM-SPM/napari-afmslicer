@@ -110,3 +110,7 @@ Thumbs.db
 
 # Other directories
 tmp/
+
+# Misc
+# Script used by @ns-rse to launch napari with an image
+debug_napari.py
