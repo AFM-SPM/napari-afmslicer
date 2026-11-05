@@ -31,6 +31,7 @@ requires-python = ">=3.11, <3.12"
 # See best practices: https://napari.org/stable/plugins/building_a_plugin/best_practices.html
 dependencies = [
   "afmslicer",
+  "napari>=0.10.0",
   "napari-afmreader",
   "napari-crop",
   "napari-topostats",
@@ -128,6 +129,9 @@ lint.ignore = [
     "E501", # line too long. let black handle this
     "UP006", "UP007", # type annotation. As using magicgui require runtime type annotation then we disable this.
 ]
+
+# Numpy2 deprecation checks
+lint.extend-select = ["NPY201"]
 exclude = [
     ".bzr",
     ".direnv",
@@ -150,9 +154,6 @@ exclude = [
     "*_vendor*",
 ]
 fix = true
-
-# Numpy2 deprecation checks
-lint.extend-select = ["NPY201"]
 preview = false
 
 [tool.ruff.lint.flake8-quotes]
