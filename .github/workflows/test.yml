@@ -32,7 +32,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v7
-
       - name: Setup python
         uses: astral-sh/setup-uv@v7
         with:
@@ -43,17 +42,19 @@ jobs:
         with:
           qt: true
           wm: herbstluftwm
-
-
-      # note: if you need dependencies from conda, considering using
-      # setup-miniconda: https://github.com/conda-incubator/setup-miniconda
-      # and
-      # tox-conda: https://github.com/tox-dev/tox-conda
-      # this runs the platform-specific tests declared in tox.ini
-      - name: Test with tox
-        run: uvx --with tox-gh-actions tox
-        env:
-          PLATFORM: ${{ matrix.platform }}
-
-      - name: Coverage
+      - name: Install package dependencies in activated environment
+        shell: bash
+        run: |
+          uv sync --frozen --all-extras --dev
+      - name: Pytest
+        run: |
+          uv run pytest --cov=src --cov-branch --numprocesses=logical tests
+      - name: Determine coverage
+        if: runner.os == 'Linux'
+        run: |
+          coverage xml
+      - name: Upload coverage to Codecov
+        if: runner.os == 'Linux'
         uses: codecov/codecov-action@v7
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
